@@ -1,0 +1,47 @@
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="car">
+        <div class="card-body">
+
+          <h3>Listagem de Veículos</h3>
+          <div class="direita">
+          <button type="button" class="btn btn-primary btn-rounded" mdbRipple routerLink="/admin/carros/new">Novo</button>
+        </div>
+        <br>
+          <table border="1" class="table table-striped">
+            <thead>
+              <th>ID</th>
+              <th>NOME</th>
+              <th>TIPO</th>
+              <th>CHASSI</th>
+              <th>ANO</th>
+              <th>COR</th>
+              <th>STATUS</th>
+            </thead>
+            <tbody>
+
+              @for (vehicle of vehicles; track $index) {
+              <tr>
+                <td>{{ vehicle.id }}</td>
+                <td>{{ vehicle.name }}</td>
+                <td>{{ vehicle.vehicleType }}</td>
+                <td>{{ vehicle.chassi }}</td>
+                <td>{{ vehicle.year }}</td>
+                <td>{{ vehicle.color }}</td>
+                <td>{{ vehicle.isRented }}</td>
+                <td class="direita">
+                  <button type="button" class="btn btn-primary btn-rounded" mdbRipple routerLink="/admin/carros/edit/{{vehicle.id}}">Editar</button>
+                  <button type="button" class="btn btn-danger btn-rounded" mdbRipple (click)="deletar()">Deletar</button>
+                </td>
+              </tr>
+            }
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
