@@ -8,15 +8,15 @@
           <h3>Cadastro de Carro:</h3>
           <br>
           <mdb-form-control>
-            <input mdbInput type="text" id="user" class="form-control" [(ngModel)]="vehicle.name" />
-            <label mdbLabel class="form-label" for="user">Nome:</label>
+            <input mdbInput type="text" id="name" class="form-control" [(ngModel)]="vehicle.name" />
+            <label mdbLabel class="form-label" for="name">Nome:</label>
           </mdb-form-control>
           <br>
           <mdb-form-control>
             <select id="vehicleType" class="form-control" [(ngModel)]="vehicle.vehicleType">
-              <option value="" disabled selected>Selecione o tipo</option>
-              <option value="car">Carro</option>
-              <option value="motorcycle">Moto</option>
+              <option value="" disabled selected></option>
+              <option value="CAR">Carro</option>
+              <option value="MOTORCYCLE">Moto</option>
             </select>
             <label mdbLabel class="form-label" for="vehicleType">Tipo:</label>
           </mdb-form-control>
@@ -33,7 +33,7 @@
           <br>
           <mdb-form-control>
             <select id="color" class="form-control" [(ngModel)]="vehicle.color">
-              <option value="" disabled selected>Selecione a Cor</option>
+              <option value="" disabled selected></option>
               <option value="preto">Preto</option>
               <option value="branco">Branco</option>
               <option value="vermelho">Vermelho</option>

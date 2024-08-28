@@ -1,66 +1,72 @@
-<br>
+<br />
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <div class="car">
+      <div class="card">
         <div class="card-body">
 
-          <h3>Listagem de Veículos</h3>
-          <div class="direita">]
-            <!--
-          <button type="button" class="btn btn-primary btn-rounded" mdbRipple routerLink="/admin/carros/new">Novo</button>
-          -->
-          <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="new()">Novo</button>
+          <h3>Listagem de carros</h3>
+          <div class="direita">
+
+          <button type="button" class="btn btn-primary btn-rounded" mdbRipple routerLink="/admin/carros/new">
+            Novo
+          </button>
+
+
         </div>
         <br>
           <table border="1" class="table table-striped">
             <thead>
-              <th>ID</th>
-              <th>NOME</th>
-              <th>TIPO</th>
-              <th>CHASSI</th>
-              <th>ANO</th>
-              <th>COR</th>
-              <th>STATUS</th>
+              <tr>
+                <th>ID</th>
+                <th>NOME</th>
+                <th>TIPO</th>
+                <th>CHASSI</th>
+                <th>ANO</th>
+                <th>COR</th>
+                <th>STATUS</th>
+                <th style="text-align: center; padding-left: 100px;">AÇÕES</th>
+              </tr>
             </thead>
             <tbody>
-
-              @for (vehicle of vehicles; track $index) {
-              <tr>
-                <td>{{ vehicle.id }}</td>
-                <td>{{ vehicle.name }}</td>
-                <td>{{ vehicle.vehicleType }}</td>
-                <td>{{ vehicle.chassi }}</td>
-                <td>{{ vehicle.year }}</td>
-                <td>{{ vehicle.color }}</td>
-                <td>{{ vehicle.isRented }}</td>
-                <td class="direita">
-                  <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="edit(vehicle)">Editar</button>
-                  <button type="button" class="btn btn-danger btn-rounded" mdbRipple (click)="deleteById(vehicle)">Deletar</button>
-                </td>
-              </tr>
-            }
+              @for (vehicle of lista; track $index) {
+                <tr>
+                  <td>{{ vehicle.id }}</td>
+                  <td>{{ vehicle.name }}</td>
+                  <td>{{ vehicle.vehicleType }}</td>
+                  <td>{{ vehicle.chassi }}</td>
+                  <td>{{ vehicle.year }}</td>
+                  <td>{{ vehicle.color }}</td>
+                  <td>
+                    {{ vehicle.isRented ? 'Indisponível' : 'Disponível' }}
+                  </td>
+                  <td class="direita">
+                    <button
+                      type="button"
+                      class="btn"
+                      [ngClass]="{
+                        'btn-primary': !vehicle.isRented,
+                        'btn-warning': vehicle.isRented,
+                        'btn-rounded': true
+                      }"
+                      mdbRipple
+                      (click)="vehicle.isRented ? alugar(vehicle) : alugar(vehicle)">
+                      {{ vehicle.isRented ? 'Desagular' : 'Alugar' }}
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-rounded"
+                      mdbRipple
+                      (click)="deleteById(vehicle)">
+                      Deletar
+                    </button>
+                  </td>
+                </tr>
+              }
             </tbody>
           </table>
-
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<ng-template #modalVehicleDetalhe>
-<div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
-  <button
-    type="button"
-    class="btn-close"
-    aria-label="Close"
-    (click)="modalRef.close()"
-  ></button>
-</div>
-<div class="modal-body">
-  <app-vehicles-details [vehicle]="vehicleEdit" (retorno)="retornoDetalhe($event)"></app-vehicles-details>
-
-</div>
-</ng-template>
