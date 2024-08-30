@@ -1,28 +1,33 @@
 <div class="container">
+  <div class="row">
+    <div class="col-lg-4"></div>
 
-    <div class="row">
-    <div class="col-lg-4 centralizar topo" >
-
+    <div class="col-lg-4 centralizar topo">
       <div class="card">
         <div class="card-body">
           <h3>Autentique-se:</h3>
           <br>
           <mdb-form-control>
-            <input mdbInput type="text" id="user" class="form-control" [(ngModel)]="user" />
-            <label mdbLabel class="form-label" for="user">Usuário:</label>
+            <input mdbInput type="text" id="usuario" class="form-control" [(ngModel)]="login.username" (keyup.enter)="logar()" />
+            <label mdbLabel class="form-label" for="usuario">Usuário</label>
           </mdb-form-control>
-          <br>
+          <br />
           <mdb-form-control>
-            <input mdbInput type="password" id="password" class="form-control" [(ngModel)]="password" />
-            <label mdbLabel class="form-label" for="password">Senha:</label>
+            <input mdbInput type="password" id="senha" class="form-control" [(ngModel)]="login.password" (keyup.enter)="logar()" />
+            <label mdbLabel class="form-label" for="senha">Senha:</label>
           </mdb-form-control>
-
-          <button type="button" class="btn btn-primary btn-rounded" mdbRipple mdbRipple (click)="logar()">Acessar</button>
+          <br />
+          <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="logar()">
+              Acessar
+            </button>
+            <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="navigateToRegister()">
+              Registrar-se
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="col-lg-4"></div>
 
     <div class="col-lg-4"></div>
   </div>

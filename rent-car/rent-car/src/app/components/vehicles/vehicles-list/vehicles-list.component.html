@@ -1,70 +1,122 @@
-<br />
+<br>
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-
           <h3>Listagem de carros</h3>
+          @if(loginService.hasPermission("ADMIN")) {
           <div class="direita">
+            <button type="button" class="btn btn-primary btn-rounded" mdbRipple routerLink="/admin/carros/new">
+              Novo
+            </button>
+          </div>
+        }
+          <br>
 
-          <button type="button" class="btn btn-primary btn-rounded" mdbRipple routerLink="/admin/carros/new">
-            Novo
-          </button>
+          <!-- Filtros -->
+          <div class="filters">
+            <div class="row">
+              <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Nome" [(ngModel)]="filters.name">
+              </div>
+              <div class="col-md-2">
+                <select class="form-control" [(ngModel)]="filters.vehicleType">
+                  <option value="">Tipo</option>
+                  <option value="CAR">Carro</option>
+                  <option value="MOTORCYCLE">Moto</option>
+                  <!-- Adicione mais opções conforme necessário -->
+                </select>
+              </div>
+              <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Chassi" [(ngModel)]="filters.chassi">
+              </div>
+              <div class="col-md-2">
+                <input type="number" class="form-control" placeholder="Ano" [(ngModel)]="filters.year">
+              </div>
+              <div class="col-md-2">
+                <select class="form-control" [(ngModel)]="filters.color">
+                  <option value="">Cor</option>
+                  <option value="preto">Preto</option>
+                  <option value="branco">Branco</option>
+                  <option value="vermelho">Vermelho</option>
+                  <option value="azul">Azul</option>
+                  <option value="prata">Prata</option>
+                  <option value="cinza">Cinza</option>
+                  <option value="verde">Verde</option>
+                  <option value="amarelo">Amarelo</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <select class="form-control" [(ngModel)]="filters.isRented">
+                  <option value="">Status</option> <!-- Placeholder correto -->
+                  <option [value]="true">Alugado</option>
+                  <option [value]="false">Disponível</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <button class="btn btn-primary" (click)="applyFilters()">Aplicar Filtros</button>
+            <button class="btn btn-primary ms-2" (click)="clearFilters()">Limpar Filtros</button> <!-- Botão Limpar Filtros -->
+          </div>
 
+          <br>
 
-        </div>
-        <br>
           <table border="1" class="table table-striped">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>NOME</th>
-                <th>TIPO</th>
-                <th>CHASSI</th>
-                <th>ANO</th>
-                <th>COR</th>
-                <th>STATUS</th>
-                <th style="text-align: center; padding-left: 100px;">AÇÕES</th>
+                <th (click)="onSortChange('id')">ID</th>
+                <th (click)="onSortChange('name')">NOME</th>
+                <th (click)="onSortChange('vehicleType')">TIPO</th>
+                <th (click)="onSortChange('chassi')">CHASSI</th>
+                <th (click)="onSortChange('year')">ANO</th>
+                <th (click)="onSortChange('color')">COR</th>
+                <th (click)="onSortChange('isRented')">ALUGADO</th>
+                <th>AÇÕES</th>
               </tr>
             </thead>
             <tbody>
-              @for (vehicle of lista; track $index) {
-                <tr>
-                  <td>{{ vehicle.id }}</td>
-                  <td>{{ vehicle.name }}</td>
-                  <td>{{ vehicle.vehicleType }}</td>
-                  <td>{{ vehicle.chassi }}</td>
-                  <td>{{ vehicle.year }}</td>
-                  <td>{{ vehicle.color }}</td>
-                  <td>
-                    {{ vehicle.isRented ? 'Indisponível' : 'Disponível' }}
-                  </td>
-                  <td class="direita">
-                    <button
-                      type="button"
-                      class="btn"
-                      [ngClass]="{
-                        'btn-primary': !vehicle.isRented,
-                        'btn-warning': vehicle.isRented,
-                        'btn-rounded': true
-                      }"
-                      mdbRipple
-                      (click)="vehicle.isRented ? alugar(vehicle) : alugar(vehicle)">
-                      {{ vehicle.isRented ? 'Desagular' : 'Alugar' }}
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-danger btn-rounded"
-                      mdbRipple
-                      (click)="deleteById(vehicle)">
-                      Deletar
-                    </button>
-                  </td>
-                </tr>
-              }
+              <tr *ngFor="let carro of lista">
+                <td>{{carro.id}}</td>
+                <td>{{carro.name}}</td>
+                <td>{{carro.vehicleType}}</td>
+                <td>{{carro.chassi}}</td>
+                <td>{{carro.year}}</td>
+                <td>{{carro.color}}</td>
+                <td>{{carro.isRented ? 'Sim' : 'Não'}}</td>
+                <td class="direita">
+                  <button
+                    type="button"
+                    class="btn"
+                    [ngClass]="{
+                      'btn-primary': !carro.isRented,
+                      'btn-warning': carro.isRented,
+                      'btn-rounded': true
+                    }"
+                    mdbRipple
+                    (click)="carro.isRented ? alugar(carro) : alugar(carro)">
+                    {{ carro.isRented ? 'Desagular' : 'Alugar' }}
+                  </button>
+                  @if(loginService.hasPermission("ADMIN")) {
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-rounded"
+                    mdbRipple
+                    (click)="deleteById(carro)">
+                    Deletar
+                  </button>
+                }
+                </td>
+              </tr>
             </tbody>
           </table>
+
+          <!-- Paginação -->
+          <div class="pagination">
+            <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0">Anterior</button>
+            <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage >= totalElements / pageSize">Próximo</button>
+          </div>
+
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams  } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Vehicle } from '../models/vehicle';
+import { Page } from '../../page.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,21 @@ export class VehicleService {
 
   alugar(id: number): Observable<string>{
     return this.http.put<string>(this.API+'/alugar/'+id, {responseType: 'text' as 'json'});
+  }
+
+  findFiltered(filters: any, page: number, size: number, sort: string): Observable<Page<Vehicle>> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('sort', sort);
+
+    // Adiciona os parâmetros de filtragem, se fornecidos
+    Object.keys(filters).forEach(key => {
+      if (filters[key] != null && filters[key] !== '') {
+        params = params.set(key, filters[key]);
+      }
+    });
+
+    return this.http.get<Page<Vehicle>>(`${this.API}/filtrar`, { params });
   }
 }
