@@ -14,7 +14,6 @@
         }
           <br>
 
-          <!-- Filtros -->
           <div class="filters">
             <div class="row">
               <div class="col-md-2">
@@ -25,7 +24,6 @@
                   <option value="">Tipo</option>
                   <option value="CAR">Carro</option>
                   <option value="MOTORCYCLE">Moto</option>
-                  <!-- Adicione mais opções conforme necessário -->
                 </select>
               </div>
               <div class="col-md-2">
@@ -49,7 +47,7 @@
               </div>
               <div class="col-md-2">
                 <select class="form-control" [(ngModel)]="filters.isRented">
-                  <option value="">Status</option> <!-- Placeholder correto -->
+                  <option value="">Status</option>
                   <option [value]="true">Alugado</option>
                   <option [value]="false">Disponível</option>
                 </select>
@@ -57,7 +55,7 @@
             </div>
             <br>
             <button class="btn btn-primary" (click)="applyFilters()">Aplicar Filtros</button>
-            <button class="btn btn-primary ms-2" (click)="clearFilters()">Limpar Filtros</button> <!-- Botão Limpar Filtros -->
+            <button class="btn btn-primary ms-2" (click)="clearFilters()">Limpar Filtros</button>
           </div>
 
           <br>
@@ -111,7 +109,6 @@
             </tbody>
           </table>
 
-          <!-- Paginação -->
           <div class="pagination">
             <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0">Anterior</button>
             <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage >= totalElements / pageSize">Próximo</button>

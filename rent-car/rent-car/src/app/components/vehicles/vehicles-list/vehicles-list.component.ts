@@ -20,16 +20,13 @@ export class VehiclesListComponent {
   lista: Vehicle[] = [];
   carroEdit: Vehicle = new Vehicle(0,"", "", "", "", "", false);
 
-  // Elementos da modal
   modalService = inject(MdbModalService);
   @ViewChild("modalCarroDetalhe") modalCarroDetalhe!: TemplateRef<any>;
   modalRef!: MdbModalRef<any>;
 
-  // Serviço de veículos
   carroService = inject(VehicleService);
   loginService = inject(LoginService);
 
-  // Variáveis para filtros
   filters: any = {
     name: '',
     vehicleType: '',
@@ -46,13 +43,12 @@ export class VehiclesListComponent {
       chassi: '',
       year: null,
       color: '',
-      isRented: '', // Volta para o estado inicial
+      isRented: '',
     };
 
     this.applyFilters();
   }
 
-  // Variáveis de paginação e ordenação
   currentPage: number = 0;
   pageSize: number = 10;
   totalElements: number = 0;

@@ -22,7 +22,7 @@ export class RegisterComponent {
     this.loginService.registrar(this.usuario).subscribe(
       response => {
         alert("Usuário cadastro com sucesso. Retornando para o login");
-        this.router.navigate(['/login']);  // Redireciona para a página de login após o registro
+        this.router.navigate(['/login']);
       },
       error => {
         console.error('Registration failed', error);

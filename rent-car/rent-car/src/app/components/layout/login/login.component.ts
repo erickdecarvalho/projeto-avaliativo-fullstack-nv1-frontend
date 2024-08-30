@@ -24,13 +24,13 @@ export class LoginComponent {
 
   logar() {
     this.loginService.logar(this.login).subscribe({
-      next: token => { // QUANDO DÁ CERTO
+      next: token => {
         console.log(token);
 		if(token)
-			this.loginService.addToken(token); //MUITO IMPORTANTE
+			this.loginService.addToken(token);
         this.router.navigate(['/admin/carros']);
       },
-      error: erro => { // QUANDO DÁ ERRO
+      error: erro => {
         alert('Username ou senha incorretos!');
       }
     });

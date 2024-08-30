@@ -46,7 +46,6 @@ export class VehicleService {
       .set('size', size.toString())
       .set('sort', sort);
 
-    // Adiciona os parâmetros de filtragem, se fornecidos
     Object.keys(filters).forEach(key => {
       if (filters[key] != null && filters[key] !== '') {
         params = params.set(key, filters[key]);
